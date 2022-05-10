@@ -1,4 +1,4 @@
-from ast import comprehension
+
 import json
 
 from django.http import JsonResponse
@@ -76,37 +76,37 @@ class OwnersView(View):
         ]
         return JsonResponse({'results' : results}, status = 200)
 
-        # # 구버전 ver 2
-        # results = []
-        # owners  = Owner.objects.all()
+        # 구버전 ver 2
+        results = []
+        owners  = Owner.objects.all()
 
-        # for owner in owners: 
-        #     results.append(
-        #         {
-        #             'name' : owner.name,
-        #             'age'  : owner.age,
-        #             'email': owner.email,
-        #             'dogs' : [{
-        #                 'name': dog.name,
-        #                 'age' : dog.age,
-        #             } for dog in owner.dog_set.all()]
-        #         }
-        #     )
-
-
+        for owner in owners: 
+            results.append(
+                {
+                    'name' : owner.name,
+                    'age'  : owner.age,
+                    'email': owner.email,
+                    'dogs' : [{
+                        'name': dog.name,
+                        'age' : dog.age,
+                    } for dog in owner.dog_set.all()]
+                }
+            )
 
 
-        # # 구버전 ver 1
-        # for owner in owners: 
-        #     dogs = list(Dog.objects.filter(owner=owner.id).values('name', 'age'))
-        #     results.append(
-        #         {
-        #             'name' : owner.name,
-        #             'age'  : owner.age,
-        #             'email': owner.email,
-        #             'dogs' : dogs,
-        #         }
-        #     )
+
+
+        # 구버전 ver 1
+        for owner in owners: 
+            dogs = list(Dog.objects.filter(owner=owner.id).values('name', 'age'))
+            results.append(
+                {
+                    'name' : owner.name,
+                    'age'  : owner.age,
+                    'email': owner.email,
+                    'dogs' : dogs,
+                }
+            )
 
 
 
