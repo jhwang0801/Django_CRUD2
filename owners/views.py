@@ -74,7 +74,7 @@ class OwnersView(View):
                     } for dog in owner.dog_set.all()]             
             } for owner in Owner.objects.all()
         ]
-
+        return JsonResponse({'results' : results}, status = 200)
 
         # # 구버전 ver 2
         # results = []
@@ -109,7 +109,6 @@ class OwnersView(View):
         #     )
 
 
-        return JsonResponse({'results' : results}, status = 200)
 
 
 
